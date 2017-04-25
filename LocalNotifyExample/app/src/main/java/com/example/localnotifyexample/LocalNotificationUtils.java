@@ -14,8 +14,8 @@ public class LocalNotificationUtils {
 
     public static final int REQUEST_CODE = 13579;
 
-    private static final int MORNING_NOTIFICATION_TIME_HOUR     = 7;
-    private static final int MORNING_NOTIFICATION_TIME_MINUTE   = 30;
+    public static int MORNING_NOTIFICATION_TIME_HOUR     = 7;
+    public static int MORNING_NOTIFICATION_TIME_MINUTE   = 30;
 
     public static void clearLocalNotification(Context context) {
         Intent intent = new Intent(context, LocalNotificationReceiver.class);
@@ -46,7 +46,9 @@ public class LocalNotificationUtils {
         calendar.set(Calendar.MINUTE, MORNING_NOTIFICATION_TIME_MINUTE);
         calendar.set(Calendar.SECOND, 0);
         long alarmTime = calendar.getTimeInMillis();
-        if (alarmTime < System.currentTimeMillis()) alarmTime += AlarmManager.INTERVAL_DAY;
+        if (alarmTime < System.currentTimeMillis()) {
+            alarmTime += AlarmManager.INTERVAL_DAY;
+        }
         alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
     }
 }
