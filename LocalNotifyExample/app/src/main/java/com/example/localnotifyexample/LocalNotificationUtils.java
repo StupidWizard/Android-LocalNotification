@@ -12,7 +12,7 @@ import java.util.Calendar;
  */
 public class LocalNotificationUtils {
 
-    public static final int REQUEST_CODE = 13579;
+    public static final int REQUEST_CODE = 1357;
 
     public static int MORNING_NOTIFICATION_TIME_HOUR     = 7;
     public static int MORNING_NOTIFICATION_TIME_MINUTE   = 30;

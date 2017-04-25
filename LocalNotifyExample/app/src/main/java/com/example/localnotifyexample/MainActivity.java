@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void Schedule() {
+        Clear();
+
         String textMsg = msg.getText().toString();
         int hourData = (int)Float.parseFloat(hour.getText().toString());
         int minData = (int)Float.parseFloat(min.getText().toString());

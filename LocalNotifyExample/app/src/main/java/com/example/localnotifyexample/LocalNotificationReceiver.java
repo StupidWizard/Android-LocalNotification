@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 
 /**
  * This stupid code is created by thantieuhodo on 4/24/17.
@@ -21,12 +20,11 @@ public class LocalNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent i = new Intent(context, MainActivity.class);
-        i.putExtra(INTENT_EXTRA, true);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addNextIntent(i);
-        PendingIntent pendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        final Intent notificationIntent = new Intent(context, MainActivity.class);
+        notificationIntent.setAction(Intent.ACTION_MAIN);
+        notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, LocalNotificationUtils.REQUEST_CODE, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String title = intent.getStringExtra(TITLE_EXTRA);
         if (title == null || title.length() <= 1) {
@@ -49,6 +47,7 @@ public class LocalNotificationReceiver extends BroadcastReceiver {
                 .setContentTitle(title)
                 .setContentText(msg);
 
+
         // TODO - icon???
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             builder.setSmallIcon(R.mipmap.ic_launcher);
@@ -57,6 +56,7 @@ public class LocalNotificationReceiver extends BroadcastReceiver {
         }
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         mNotificationManager.notify(0, builder.build());
     }
 
